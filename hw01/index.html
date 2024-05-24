@@ -4,14 +4,77 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>作品集 Portfolio</title>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- https://alexlenail.me/NN-SVG/about.html -->
-<link rel="icon" href="./favicon.svg"/>
-<style type="text/css">
 
+<!-- D3, jquery -->
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" charset="utf-8"></script>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<title>作品集 Portfolio</title>
+<!-- https://alexlenail.me/NN-SVG/about.html -->
+<link rel="icon" href="../hw00/favicon.svg"/>
+<style type="text/css">
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200&display=swap');
+
+  table {
+    border-collapse: collapse;
+    border: 2px solid white; /* rgba(217,140,144,1) */
+    font-size:  12pt;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  td,
+  th {
+    border: 1px solid white;
+    padding: 2px 8px;
+  }
+
+  .flipswitch
+  {
+      position: relative;
+      background: white;
+      width: 120px;
+      height: 20px;
+      -webkit-appearance: initial;
+      border-radius: 3px;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      outline:none;
+      font-size: 14px;
+      font-family: Trebuchet, Arial, sans-serif;
+      font-weight: bold;
+      cursor:pointer;
+      border:1px solid #ddd;
+  }
+  .flipswitch:after
+  {
+      position:absolute;
+      top:5%;
+      display:block; 
+      line-height:16px;
+      width:45%;
+      height:90%;
+      background:#fff;
+      box-sizing:border-box;
+      text-align:center;
+      transition: all 0.3s ease-in 0s; 
+      color:rgba(159,53,58,1);
+      border:#888 1px solid;
+      border-radius:3px;
+  }
+  .flipswitch:after
+  {
+      left:2%;
+      content: "未完成";
+  }
+  .flipswitch:checked:after
+  {
+      left:53%;
+      content: "完成";
+  }
 
   body {
     background-color: rgb(106, 76, 156); /* #6A4C9C */
@@ -29,45 +92,15 @@
     margin-bottom: 8px;
   }
 
+  .bottomrow {
+    margin-bottom: 32px;
+  }
+
   .twenty {
     border: 1px solid #f9eced;
     color: #f9eced;
     padding: 8px;
-    font-size: 18pt;
-  }
-
-  .twenty a {
-    color:  yellow;
-  }
-
-  .twenty a:hover {
-    color: #f9eced;
-    font-size:  16pt;
-  }
-
-  svg {
-    border: 2px solid rgb(159, 53, 58);
-  }
-
-  path {
-    pointer-events: all;
-    fill: #f9eced;
-    stroke: rgb(159, 53, 58);
-    stroke-opacity: 0.95;
-    stroke-width: 1px;
-  }
-
-  .active circle {
-    stroke: #f9eced;
-    stroke-width: 2px;
-  }
-
-  svg g text {
-    fill: rgba(255, 255, 255, 0.95);
-    background-color: rgba(255, 255, 0, 0.1);
-    text-shadow: 0 0 16px #FF0000, 0 0 16px #000000;
-    font-size: 24pt;
-    text-anchor: middle;
+    font-size: 16pt;
   }
 
   .twenty:hover {
@@ -76,70 +109,54 @@
       text-shadow: 0 0 6px #FFFFFF, 0 0 6px #000000;
   }
 
-  img:hover {
-      box-shadow: 0 0 1px 1px #f9eced;
-      animation-name: happy;
-      animation-duration: 0.5s;
-      animation-iteration-count: infinite;
+  @font-face {
+    font-family:'Fira Code';
+    src: url(FiraCode-Regular.ttf) format('truetype'); /* https://worldofzero.com/posts/enable-font-ligatures-vscode/ */
   }
 
-  @keyframes happy {
-      0% {
-          transform: translateY(0px);
-      }
-
-      25% {
-          transform: translateY(-15px);
-      }
-
-      50% {
-          transform: translateY(0px);
-      }
-
-      75% {
-          transform: translateY(-5px);
-      }
-
-      100% {
-          transform: translateY(0px);
-      }
+  .FiraCode {
+    font-family: 'Fira Code';
   }
 
-  img.withborder {
-    border: 1px solid #f9eced;
+  @font-face {
+    font-family:'DiaPro';
+    src: url(DiaPro-Regular.ttf) format('truetype'); /* https://but.tw/font/ */
   }
 
-/* 揮手 */
-.github-corner:hover 
-.octo-arm {
-  animation: octocat-wave 560ms ease-in-out
-}
-@keyframes octocat-wave {
-  0%,100% {
-    transform:rotate(0)
+  .DiaPro {
+    font-family: 'DiaPro';
   }
-  20%,60% {
-    transform:rotate(-25deg)
-  }
-  40%,80% {
-    transform:rotate(10deg)
-  }
-}
-@media (max-width:500px) {
+
   .github-corner:hover 
-  .octo-arm {
-    animation:none
-  }
-
-  .github-corner 
   .octo-arm {
     animation: octocat-wave 560ms ease-in-out
   }
-}
+  @keyframes octocat-wave {
+    0%,100% {
+      transform:rotate(0)
+    }
+    20%,60% {
+      transform:rotate(-25deg)
+    }
+    40%,80% {
+      transform:rotate(10deg)
+    }
+  }
+  @media (max-width:500px) {
+    .github-corner:hover 
+    .octo-arm {
+      animation:none
+    }
+
+    .github-corner 
+    .octo-arm {
+      animation: octocat-wave 560ms ease-in-out
+    }
+  }
 
   /* 波浪 */
   a {
-    color:#f30;
+    color:yellow;
     text-decoration: none; 
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='%23fff' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E") repeat-x 0 100%; 
     background-size:20px auto; 
@@ -160,12 +177,10 @@
   }
   /* 波浪 */
 </style>
-
 </head>
 <body>
 <!-- https://alexlenail.me/NN-SVG/about.html -->
-<!--             你的帳號 -->
-<a href="https://tjhsieh.github.io/c/ct/ct2024s/" class="github-corner" aria-label="View source on Github">
+<a href="https://github.com/107590028/ct2024s.git" class="github-corner" aria-label="View source on Github">
   <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#f9eced; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
     <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="#f9eced" stroke="#6A4C9C" style="transform-origin: 130px 106px;" class="octo-arm"></path>
@@ -173,40 +188,246 @@
   </svg>
 </a>
 
+
 <div class="container-fluid">
-  <!-- ---------------------------------------------- -->
+
+  <!-- ------------------------------------------------>
   <div class="row hw12">
     <div class="col-md-12 twenty">
-      <h1>字體設計與文字編碼 112-2 作品集</h1>
-    </div>
-  </div>
-
-  <!-- ---------------------------------------------- -->
-  <div class="row hw12">
-    <div class="col twenty"><a href="../hw01/index.html">01</a></div>
-    <div class="col twenty"><a href="../hw02/index.html">02</a></div>
-    <div class="col twenty"><a href="../hw03/index.html">03</a></div>
-    <div class="col twenty"><a href="../hw04/index.html">04</a></div>
-    <div class="col twenty"><a href="../hw05/index.html">05</a></div>
-    <div class="col twenty"><a href="../hw06/index.html">06</a></div>
-    <div class="col twenty"><a href="../hw07/index.html">07</a></div>
-    <div class="col twenty"><a href="../hw08/index.html">08</a></div>
-    <div class="col twenty"><a href="../hw09/index.html">09</a></div>
-  </div>
-
-  <!-- ---------------------------------------------- -->
-  <div class="row hw12">
-    <div class="col-md-12 twenty">
-      <img class="withborder" src="./me.jpg" height="360">
-      <!-- <hr>
-      請挑選一張你的生活照(檔案名稱取名為 me.jpg)取代上方的 Hello Kitty，作法如下: <br>
-      1. 上傳到你的生活照到 hw00 檔案夾 https://github.com/你的帳號/ct2024s/hw00/ <br>
-      2. 修改 /hw00/index.html 中的第201行，把 src="./image.svg" 修改為 src="./me.jpg"。<br>
-      3. 前往 https://github.com/你的帳號/ct2024s/ 檢查是否能夠正常顯示。<br> -->
+      <h1>作業 01 <hr> Ligature 「合字」 「連字」</h1>
     </div>
   </div>
 
   <!-- ------------------------------------------------>
+  <!-- 
+  <div class="row hw12">
+    <div class="col-md-12 twenty">
+      若該次作業有程式碼，請放在 https://github.com/<span style="color:red;">你的帳號</span>/ct2024s/hw<span style="color:red;">01</span>/src/ 檔案夾。
+    </div>
+  </div>
+  -->
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-12 twenty">
+      <table>
+        <tr>
+          <th>總分</th>
+          <th>完成後打勾</th>
+          <th>配分</th>
+          <th>等級</th>
+          <th>分項描述</th>
+        </tr>
+        <tr>
+          <td rowspan="7" id="myTotal"></td>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox1" checked></td>
+          <td id='m1'>2</td>
+          <td  rowspan="2">Simple baseline</td>
+          <td>下載並安裝 'Fira Code' 字體。</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox2" checked></td>
+          <td id='m2'>2</td>
+          <td>下載並安裝 DiaPro 字體。</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox3" checked></td>
+          <td id='m3'>2</td>
+          <td  rowspan="2">Medium baseline </td>
+          <td>設定 VS Code 使用 'Fira Code' 字體，並開啟連字功能。</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox4" checked></td>
+          <td id='m4'>2</td>
+          <td>設定 VS Code 使用 DiaPro 字體，並開啟連字功能。</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="flipswitch" id="myCheckbox5" checked></td>
+          <td id='m5'>2</td>
+          <td>Strong baseline</td>
+          <td>完成 HW01 作品集，寫100字心得，放到 github 你的 ct2024s 倉庫 hw01 檔案夾。</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-12 twenty">
+      在這份作業中我學到一些很酷的查詢編碼的方法，以及一些好看的繁中字體，讓我的字體庫又有新成員了。還有很酷的連字字體，雖然我沒有成功下載下來，但是以後想用的時候可以再試試看。還有介紹到全瀨體，雖然我原本就有下載瀨戶字體，但是這個全瀨體是用深度學習AI造字的，字體更齊全。
+    </div>
+  </div>
+
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-6 twenty">
+      <h1> 「FiraCode」</h1>
+      <ul>
+       <li>原文出處: <a href="https://worldofzero.com/posts/enable-font-ligatures-vscode/" target="_blank"> Enable Font Ligatures in VS Code </a></li>
+       <li>GitHub: <a href="https://github.com/tonsky/FiraCode" target="_blank">https://github.com/tonsky/FiraCode</a></li>
+      </ul>
+    </div>
+    <div class="col-md-6 twenty">
+      <h1> 「時刻表っぽいフォント — DiaPro」</h1>
+      <ul>
+       <li>原文出處: <a href="https://but.tw/font/" target="_blank"> 時刻表っぽいフォント — DiaPro </a></li>
+       <li>GitHub: <a href="https://github.com/ButTaiwan/diapro/releases" target="_blank">https://github.com/ButTaiwan/diapro/releases</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-6 twenty">
+      <li class="">預設字型: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> &nbsp;&nbsp; => &nbsp;&nbsp; == &nbsp;&nbsp; === &nbsp;&nbsp; != &nbsp;&nbsp; =/= &nbsp;&nbsp; <= &nbsp;&nbsp; >= &nbsp;&nbsp; <=></li>
+      <li class="FiraCode">FiraCode 字型: -> => == === != =/= <= >= <=></li>
+    </div>
+    <!-- &nbsp; &ensp; &emsp; &thinsp; &zwnj; &zwj;  -->
+    <div class="col-md-6 twenty">
+      <li class="">預設字型: Sleeper AllReserved GreenReserved LimitedSleeper</li>
+      <li class="DiaPro">DiaPro 字型: Sleeper AllReserved GreenReserved LimitedSleeper</li>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-6 twenty">
+      <li>說明: 如何啟動 VS Code 的連字設定 font ligatures ?</li>
+      <li>1. 下載並安裝 Fira Code。</li>
+      <li>2. File -> Preferences -> Settings -> 'Text Editor' -> 'Font'</li>
+      <li>3. 編輯 <span style="color: yellow;"> settings.json </span> 檔，指定 'Fira Code' 字型，開啟連字設定。</li>
+      <textarea rows="5" cols="50">
+        {
+          "editor.fontFamily": "'Fira Code', 'Courier New'",
+          "editor.fontLigatures": true,
+        }
+      </textarea>
+      <li>4. 關閉 VS Code，重新啟動 VS Code。</li>
+      <li>5. 使用 VS Code 打開 sample.txt。</li>
+      <li>6. 螢幕截圖。</li>
+    </div>
+
+    <div class="col-md-6 twenty">
+      <li>說明: 如何啟動 VS Code 的連字設定 font ligatures ?</li>
+      <li>1. 下載並安裝 DiaPro 字型。</li>
+      <li>2. File -> Preferences -> Settings -> 'Text Editor' -> 'Font'</li>
+      <li>3. 編輯 <span style="color: yellow;"> settings.json </span> 檔，指定 DiaPro 字型，開啟連字設定。</li>
+      <textarea rows="5" cols="50">
+        {
+          "editor.fontFamily": "DiaPro, 'Courier New'",
+          "editor.fontLigatures": true,
+        }
+      </textarea>
+      <li>4. 關閉 VS Code，重新啟動 VS Code。</li>
+      <li>5. 使用 VS Code 打開 sample.txt。</li>
+      <li>6. 螢幕截圖。</li>
+    </div>
+
+  </div>
+
+  <!-- ------------------------------------------------>
+
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-6 twenty">
+      <li>成功顯示字型後，使用 VS Code 打開 sample.txt，螢幕截圖(顯示 Fira Code 字型)，命名為 <span style="color: yellow;">1.png</span>，放到作品集 HW01 檔案夾。注意: 副檔名 png 必須小寫。</li>
+      <li>
+        <img src="./src/1.png" width="99%" alt="1.png 螢幕截圖: 顯示 Fira Code 字型 (如下圖範例)" />
+      </li>
+    </div>
+    <div class="col-md-6 twenty">
+      <li>成功顯示字型後，使用 VS Code 打開 sample.txt，螢幕截圖(顯示 DiaPro 字型)，命名為 <span style="color: yellow;">2.png</span>，放到作品集 HW01 檔案夾。注意: 副檔名 png 必須小寫。</li>
+      <li>
+        <img src="./src/2.png" width="99%" alt="2.png 螢幕截圖: 顯示 DiaPro 字型 (如下圖範例)" />
+      </li>
+    </div>
+  </div>
+
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12">
+    <div class="col-md-6 twenty">
+      正確顯示 FiraCode 字型
+      <img src="./src/1s.png" width="99%" />
+    </div>
+    <div class="col-md-6 twenty">
+      正確顯示 DiaPro 字型
+      <img src="./src/2s.png" width="99%" />
+    </div>
+  </div>
+
+
+  <!-- ------------------------------------------------>
+  <div class="row hw12 bottomrow">
+    <div class="col-md-6 twenty">
+      對照組(預設字體，沒有啟動連字)
+      <img src="./src/0.png" width="99%" />
+    </div>
+    <div class="col-md-6 twenty">
+      對照組(預設字體，沒有啟動連字)
+      <img src="./src/0.png" width="99%" />
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------>
+  <!-- 
+  <div class="row hw12 bottomrow">
+    <div class="col-md-6 twenty">
+      
+    </div>
+    <div class="col-md-6 twenty">
+      
+    </div>
+  </div>
+  -->
+
+
+
+  <!-- ------------------------------------------------>
+
+  <!-- ------------------------------------------------>
+
+<script>
+  $(function() {
+    var f = function() {
+      $(this).next().text($(this).is(':checked') ? '做完' : '未做完');
+    };
+    $('input').change(f).trigger('change');
+  });
+
+  d3.select("#myCheckbox1").on("change",update);
+  d3.select("#myCheckbox2").on("change",update);
+  d3.select("#myCheckbox3").on("change",update);
+  d3.select("#myCheckbox4").on("change",update);
+  d3.select("#myCheckbox5").on("change",update);
+  d3.select("#myCheckbox6").on("change",update);
+  d3.select("#myCheckbox7").on("change",update);
+
+  update();
+  
+  function update(){
+    var score = 0;
+    if (d3.select("#myCheckbox1").property("checked")){
+      score += parseInt(d3.select('#m1').html());
+    }
+    if (d3.select("#myCheckbox2").property("checked")){
+      score += parseInt(d3.select('#m2').html());   
+    }
+    if (d3.select("#myCheckbox3").property("checked")){
+      score += parseInt(d3.select('#m3').html());   
+    }
+    if (d3.select("#myCheckbox4").property("checked")){
+      score += parseInt(d3.select('#m4').html());   
+    }
+    if (d3.select("#myCheckbox5").property("checked")){
+      score += parseInt(d3.select('#m5').html());   
+    }
+    d3.select("#myTotal").html(score);    
+  }
+
+</script>
 
 </body>
 </html>
